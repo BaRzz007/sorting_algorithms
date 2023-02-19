@@ -25,5 +25,8 @@ void swap_arr(int **, size_t, size_t);
 void swap_list(listint_t **, listint_t **);
 void bubble_sort(int *, size_t);
 void selection_sort(int *, size_t);
+void quick_sort(int *, size_t);
+void _quick_sort(int **, size_t, int, int);
+int partition(int **, size_t, int, int);
 
 #endif
