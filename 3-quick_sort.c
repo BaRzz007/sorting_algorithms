@@ -8,8 +8,10 @@
  */
 void quick_sort(int *array, size_t size)
 {
-	if (size > 1)
-		_quick_sort(&array, size, 0, size - 1);
+	if (size < 2)
+		return;
+
+	_quick_sort(&array, size, 0, size - 1);
 }
 
 /**
@@ -23,12 +25,15 @@ void _quick_sort(int **array, size_t size, int left, int right)
 {
 	int pivot_idx, *arr;
 
+	if (left > right)
+		return;
+
 	arr = *array;
 	pivot_idx = partition(&arr, size, left, right);
-	if ((pivot_idx - 1) - left > 1)
-		_quick_sort(&arr, size, left, pivot_idx - 1);
-	if (right - (pivot_idx + 1) > 1)
-		_quick_sort(&arr, size, pivot_idx + 1, right);
+	/*if ((pivot_idx - 1) - left > 1)*/
+	_quick_sort(&arr, size, left, pivot_idx - 1);
+	/*if (right - (pivot_idx + 1) > 1)*/
+	_quick_sort(&arr, size, pivot_idx + 1, right);
 }
 
 /**
@@ -45,6 +50,7 @@ int partition(int **array, size_t size, int left, int right)
 
 	if ((right - left) < 2)
 		return (left);
+
 	arr = *array;
 	pivot = arr[right];
 	i = left - 1;
@@ -61,6 +67,7 @@ int partition(int **array, size_t size, int left, int right)
 	}
 	if ((i + 1) == right)
 		return (i + 1);
+
 	swap_arr(&arr, i + 1, right);
 	print_array(arr, size);
 	return (i + 1);
