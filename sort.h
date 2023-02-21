@@ -3,9 +3,6 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-#define TRUE 1
-#define FALSE 0
-
 /**
  * struct listint_s - Doubly linked list node
  *

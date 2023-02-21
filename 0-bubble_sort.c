@@ -1,4 +1,5 @@
 #include "sort.h"
+
 /**
  * bubble_sort - bubble sort algorithm
  * @array: array to sort
@@ -19,7 +20,7 @@ void bubble_sort(int *array, size_t size)
 		{
 			if (array[j] > array[j + 1])
 			{
-				swap_arr(array, array[j], array[j + 1]);
+				swap_arr(&array, j, j + 1);
 				print_array(array, size);
 			}
 		}
