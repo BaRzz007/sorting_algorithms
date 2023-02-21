@@ -7,8 +7,10 @@
  */
 void quick_sort(int *array, size_t size)
 {
-	if (size > 1)
-		_quick_sort(&array, size, 0, size - 1);
+	if (size < 1)
+		return;
+
+	_quick_sort(&array, size, 0, size - 1);
 }
 
 /**
@@ -22,12 +24,15 @@ void _quick_sort(int **array, size_t size, int left, int right)
 {
 	int pivot_idx, *arr;
 
+	if (left > right)
+		return;
+
 	arr = *array;
 	pivot_idx = partition(&arr, size, left, right);
-	if (left < pivot_idx - 1)
-		_quick_sort(&arr, size, left, pivot_idx - 1);
-	if (pivot_idx + 1 < right)
-		_quick_sort(&arr, size, pivot_idx + 1, right);
+	/*if ((pivot_idx - 1) - left > 1)*/
+	_quick_sort(&arr, size, left, pivot_idx - 1);
+	/*if (right - (pivot_idx + 1) > 1)*/
+	_quick_sort(&arr, size, pivot_idx + 1, right);
 }
 
 /**
@@ -40,34 +45,31 @@ void _quick_sort(int **array, size_t size, int left, int right)
  */
 int partition(int **array, size_t size, int left, int right)
 {
-	int *arr, pivot, leftmark, rightmark;
+	int *arr, pivot, i, j;
+
+	if ((right - left) < 1)
+		return (left);
 
 	arr = *array;
 	pivot = arr[right];
-
-	leftmark = left;
-	rightmark = right - 1;
-	while (leftmark <= rightmark)
+	i = left - 1;
+	for (j = left; j <= right - 1; j++)
 	{
-		while (leftmark <= rightmark && arr[leftmark] <= pivot)
-			leftmark++;
-		while (leftmark <= rightmark && arr[rightmark] >= pivot)
-			rightmark--;
-		if (leftmark < rightmark)
+		if (arr[j] <= pivot)
 		{
-			swap_arr(&arr, leftmark, rightmark);
-			leftmark++;
-			rightmark--;
+			i++;
+			if (i == j)
+				continue;
+			swap_arr(&arr, i, j);
 			print_array(arr, size);
 		}
 	}
-	if (leftmark != right)
-	{
-		swap_arr(&arr, leftmark, right);
-		print_array(arr, size);
-	}
+	if ((i + 1) == right)
+		return (i + 1);
 
-	return (leftmark);
+	swap_arr(&arr, i + 1, right);
+	print_array(arr, size);
+	return (i + 1);
 }
 
 /**
