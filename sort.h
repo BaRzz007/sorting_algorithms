@@ -1,6 +1,7 @@
 #ifndef SORT_H
 #define SORT_H
 #include <stddef.h>
+#include <stdlib.h>
 
 #define TRUE 1
 #define FALSE 0
@@ -28,5 +29,6 @@ void selection_sort(int *, size_t);
 void quick_sort(int *, size_t);
 void _quick_sort(int **, size_t, int, int);
 int partition(int **, size_t, int, int);
+void insertion_sort_list(listint_t **list);
 
 #endif
