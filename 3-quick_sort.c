@@ -55,7 +55,7 @@ int partition(int **array, size_t size, int left, int right)
 	i = left - 1;
 	for (j = left; j <= right - 1; j++)
 	{
-		if (arr[j] <= pivot && i != j)
+		if (arr[j] <= pivot)
 		{
 			i++;
 			if (i == j)
