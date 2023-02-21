@@ -7,7 +7,7 @@
  */
 void quick_sort(int *array, size_t size)
 {
-	if (size < 1)
+	if (array == NULL || size < 1)
 		return;
 
 	_quick_sort(&array, size, 0, size - 1);
