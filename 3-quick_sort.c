@@ -7,7 +7,7 @@
  */
 void quick_sort(int *array, size_t size)
 {
-	if (size < 2)
+	if (size < 1)
 		return;
 
 	_quick_sort(&array, size, 0, size - 1);
@@ -47,7 +47,7 @@ int partition(int **array, size_t size, int left, int right)
 {
 	int *arr, pivot, i, j;
 
-	if ((right - left) < 2)
+	if ((right - left) < 1)
 		return (left);
 
 	arr = *array;
