@@ -6,23 +6,23 @@
   */
 void shell_sort(int *array, size_t size)
 {
-	size_t knuth, i, i2;
+	size_t gap, i, j;
 	int tmp;
 
-	knuth = 1;
-	while (knuth < size)
-		knuth = (knuth * 3) + 1;
-	knuth = (knuth - 1) / 3;
-	while (knuth > 0)
+	gap = 1;
+	while (gap < size)
+		gap = (gap * 3) + 1;
+	gap = (gap - 1) / 3;
+	while (gap > 0)
 	{
-		for (i = knuth; i < size; i++)
+		for (i = gap; i < size; i++)
 		{
 			tmp = array[i];
-			for (i2 = i; i2 >= knuth && array[i2 - knuth] > tmp; i2 -= knuth)
-				array[i2] = array[i2 - knuth];
-			array[i2] = tmp;
+			for (j = i; j >= gap && array[j - gap] > tmp; j -= gap)
+				array[j] = array[j - gap];
+			array[j] = tmp;
 		}
-		knuth = (knuth - 1) / 3;
+		gap = (gap - 1) / 3;
 		print_array(array, size);
 	}
 }
