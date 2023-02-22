@@ -1,40 +1,29 @@
 #include "sort.h"
-
 /**
-*swap_arr - utility function to swap 2 array elements
-*@array: pointer to the array to be swapped
-*@idx1: first index
-*@idx2: second index
-*/
-void swap_arr(int *array, size_t idx1, size_t idx2)
-{
-
-	int temp;
-
-	temp = array[idx1];
-	array[idx1] = array[idx2];
-	array[idx2] = temp;
-}
-/**
- * shell_sort - shell sorting with knuth sequence
- * @array: array
- * @size: size of array
- */
+  * shell_sort - shell sort, knuth sequence
+  * @array: array to be sorted
+  * @size: size of array
+  */
 void shell_sort(int *array, size_t size)
 {
-	size_t gap = 1, i, j;
+	size_t knuth, i, i2;
+	int tmp;
 
-	if (array == NULL || size < 2)
-		return;
-	while (gap < size / 3)
-		gap = 3 * gap + 1;
-	while (gap >= 1)
+	knuth = 1;
+	while (knuth < size)
+		knuth = (knuth * 3) + 1;
+	knuth = (knuth - 1) / 3;
+	while (knuth > 0)
 	{
-		for (i = gap; i < size; i++)
-			for (j = i; j >= gap &&
-			 (array[j] < array[j - gap]); j -= gap)
-				swap_arr(array, j, j - gap);
+		for (i = knuth; i < size; i++)
+		{
+			tmp = array[i];
+			for (i2 = i; i2 >= knuth && array[i2 - knuth] > tmp; i2 -= knuth)
+				array[i2] = array[i2 - knuth];
+			array[i2] = tmp;
+		}
+		knuth = (knuth - 1) / 3;
 		print_array(array, size);
-		gap /= 3;
 	}
 }
+
