@@ -1,51 +1,64 @@
 #include "sort.h"
-/**
-  * heap_sort - heap sort algorithm
-  * @array: array to sort
-  * @size: size of array
-  */
-void heap_sort(int *array, size_t size)
-{
-	int i, tmp;
+#include <stdio.h>
 
-	for (i = size / 2 - 1; i >= 0; i--)
-		heap_s(array, i, size, size);
-	for (i = size -1; i >=0; i--)
+/**
+ * swap - utility function to swap to integers
+ * @a: integer a
+ * @b: integer b
+ */
+void swap(int *a, int *b)
+{
+	int t = *a;
+
+	*a = *b;
+	*b = t;
+}
+
+/**
+ * maxHeapify - The main function to heapify a Max Heap. The function
+ * assumes that everything under given root (element at index idx)
+ * is already heapified
+ * @array: array
+ * @size: size of the array for print
+ * @idx: index
+ * @n: size of the array to run
+ */
+void maxHeapify(int *array, size_t size, int idx, size_t n)
+{
+	int largest = idx;
+
+	int left = 2 * idx + 1;	 
+	int right = 2 * idx + 2;
+	if (left < (int)n && array[left] > array[largest])
+		largest = left;
+	if (right < (int)n && array[right] > array[largest])
+		largest = right;
+	if (largest != idx)
 	{
-		tmp = array[0];
-		array[0] = array[i];
-		array[i] = tmp;
+		swap(&array[idx], &array[largest]);
 		print_array(array, size);
-		heap_s(array, i, 0, size);
+		maxHeapify(array, size, largest, n);
 	}
 }
 
 /**
- * heap_s - heap sort algorithm
+ * heap_sort -  The main function to sort an array of given size
  * @array: array to sort
- * @idx: first index
- * @idx2: second index
- *
- * Return: nothing
+ * @size: size of the array
  */
-
-void heap_s(int *array, int idx1, int idx2, size_t size)
+void heap_sort(int *array, size_t size)
 {
-	int max = idx2;
-	int left = 2 * idx2 + 1;
-	int right = 2 * idx2 + 2;
-	int tmp;
+	int i;
 
-	if (left < idx1 && array[left] > array[max])
-		max = left;
-	if (right < idx1 && array[right] > array[max])
-		max = right;
-	if (max != idx2)
+	if (array == '\0' || size < 2)
+		return;
+
+	for (i = (size - 2) / 2; i >= 0; --i)
+		maxHeapify(array, size, i, size);
+	for (i = (size - 1); i > 0; --i)
 	{
-		tmp = array[idx2];
-		array[idx2] = array[max];
-		array[max] = tmp;
+		swap(&array[0], &array[i]);
 		print_array(array, size);
-		heap_s(array, idx1, max, size);
+		maxHeapify(array, size, 0, i);
 	}
 }
