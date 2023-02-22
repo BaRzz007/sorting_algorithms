@@ -1,5 +1,5 @@
 #include "sort.h"
-
+#include <stdio.h>
 /**
  * quick_sort_hoare - sorts an array of integers in ascending order
  * @array: array to be sorted
@@ -24,14 +24,16 @@ void _quick_sort(int **array, size_t size, int left, int right)
 {
 	int pivot_idx, *arr;
 
-	if (left > right)
-		return;
-
 	arr = *array;
-	pivot_idx = partition(&arr, size, left, right);
-
-	_quick_sort(&arr, size, left, pivot_idx - 1);
-	_quick_sort(&arr, size, pivot_idx + 1, right);
+	if (left >= 0 && right > 0 && left < right)
+	{
+		pivot_idx = partition(&arr, size, left, right);
+		if (pivot_idx == right)
+			_quick_sort(&arr, size, left, pivot_idx - 1);
+		else
+			_quick_sort(&arr, size, left, pivot_idx);
+		_quick_sort(&arr, size, pivot_idx + 1, right);
+	}
 }
 
 /**
@@ -48,30 +50,33 @@ int partition(int **array, size_t size, int left, int right)
 
 	arr = *array;
 	pivot = arr[right];
+	leftmark = left - 1;
+	rightmark = right + 1;
 
-	leftmark = left;
-	rightmark = right - 1;
-	while (leftmark <= rightmark)
+	while (leftmark < right)
 	{
-		while (leftmark <= rightmark && arr[leftmark] <= pivot)
-			leftmark++;
-		while (leftmark <= rightmark && arr[rightmark] >= pivot)
-			rightmark--;
-		if (leftmark < rightmark)
+		do
 		{
-			swap_arr(&arr, leftmark, rightmark);
 			leftmark++;
+		} while (arr[leftmark] < pivot);
+		do
+		{
 			rightmark--;
-			print_array(arr, size);
-		}
+		} while (arr[rightmark] > pivot);
+
+		if (leftmark >= rightmark)
+			return (rightmark);
+
+		swap_arr(&arr, leftmark, rightmark);
+		print_array(arr, size);
+		
 	}
-	if (leftmark != right)
+	/*if (leftmark != right)
 	{
 		swap_arr(&arr, leftmark, right);
 		print_array(arr, size);
-	}
-
-	return (leftmark);
+	}*/
+	return(rightmark);
 }
 
 /**
