@@ -5,10 +5,11 @@
  * @array: array to be sorted
  * @size: size of the array
  */
-void quick_sort(int *array, size_t size)
+void quick_sort_hoare(int *array, size_t size)
 {
-	if (array == NULL || size > 1)
+	if (array == NULL || size < 2)
 		return;
+
 	_quick_sort(&array, size, 0, size - 1);
 }
 
