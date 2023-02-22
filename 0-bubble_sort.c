@@ -9,6 +9,9 @@ void bubble_sort(int *array, size_t size)
 	size_t j;
 	int is_sorted;
 
+	if (array == NULL)
+		return;
+
 	if (size > 1)
 	{
 		is_sorted = 0;
@@ -36,10 +39,10 @@ void bubble_sort(int *array, size_t size)
  */
 void swap_arr(int **arr, size_t idx1, size_t idx2)
 {
-        int temp, *array;
+	int temp, *array;
 
-        array = *arr;
-        temp = array[idx1];
-        array[idx1] = array[idx2];
-        array[idx2] = temp;
+	array = *arr;
+	temp = array[idx1];
+	array[idx1] = array[idx2];
+	array[idx2] = temp;
 }
