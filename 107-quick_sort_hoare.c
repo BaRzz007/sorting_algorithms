@@ -53,14 +53,12 @@ int partition(int **array, size_t size, int left, int right)
 	leftmark = left - 1;
 	rightmark = right + 1;
 
-	while (leftmark < right)
+	while (1)
 	{
-		do
-		{
+		do {
 			leftmark++;
 		} while (arr[leftmark] < pivot);
-		do
-		{
+		do {
 			rightmark--;
 		} while (arr[rightmark] > pivot);
 
@@ -69,14 +67,7 @@ int partition(int **array, size_t size, int left, int right)
 
 		swap_arr(&arr, leftmark, rightmark);
 		print_array(arr, size);
-		
 	}
-	/*if (leftmark != right)
-	{
-		swap_arr(&arr, leftmark, right);
-		print_array(arr, size);
-	}*/
-	return(rightmark);
 }
 
 /**
